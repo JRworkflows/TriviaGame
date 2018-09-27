@@ -1,0 +1,48 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+    grid-template-areas: "title title" "header header" "sidebar sidebar" "stuff stuff" "other other" "footer footer"
+}
+
+.title {
+    grid-area: title;
+}
+
+.header {
+    grid-area: header;
+    display: grid;
+}
+
+.sidebar {
+    grid-area: sidebar;
+}
+
+.stuff {
+    grid-area: stuff;
+}
+
+.other {
+    grid-area: other;
+}
+
+.footer {
+    grid-area: footer
+}
+
+.questOne {
+    color: black
+}
+
+.grid div:nth-child(even) {
+    background-color: lightgray
+}
+
+.grid div:nth-child(odd) {
+    background-color: blueviolet
+}
