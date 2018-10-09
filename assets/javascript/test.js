@@ -2,8 +2,52 @@ var triviaGame = function() {
     // define game defaults
     var wins = 0;
     var losses = 0;
-    var time = 30;
+    var time = 0;
     var numberofCorrect = 0;
+    var minutes = Math.floor(timeConverter.t / 60);
+
+
+    function start () {
+        intervalId = setInterval(count, 1000);
+    }
+    start();
+
+
+    function stop () {
+        clearInterval(intervalId)
+    }
+
+    function count () {
+        time++;
+        var converted = timeConverter(time);
+        $(".timer").text(converted);
+    }
+    count();
+
+    function timeConverter (t) {
+        var minutes = Math.floor(t / 60);
+        var seconds = t - (minutes * 60);
+        
+        if (minutes < 10) {
+            seconds = "0" + seconds;
+        }
+    
+        if (minutes === 0) {
+            minutes = "00";
+        }
+
+        else if (minutes < 10) {
+            minutes = "0" + minutes;
+        }
+        if (seconds >= 20) {
+            stop();
+            alert("TIMES UP, check your score!")
+        }
+            
+        
+        return minutes + ":" + seconds;
+    }     
+//    $(".timer").text("Time Remaining: " + "0:00")
 
     var questionOne = {
             question: "What most recent team was succeeded by the Sacramento Kings in 1985?",
@@ -54,12 +98,24 @@ var triviaGame = function() {
     var submit = $("<button>Check</button>");
 
     submit.on("click", function() {
+        var numberofCorrect = 0;
         $.each($("input[name='question-1']:checked"), function () {
             if ($(this).val() === questionOne.correctAnswer) {
                 numberofCorrect++;
             }
-            
-        });console.log(numberofCorrect)
+        });
+        $.each($("input[name='question-2']:checked"), function () {
+            if ($(this).val() === questionTwo.correctAnswer) {
+                numberofCorrect++;
+            }
+        });
+        $.each($("input[name='question-3']:checked"), function () {
+           if ($(this).val() === questionThree.correctAnswer) {
+               numberofCorrect++;
+        }
+    });
+       
+        $(".rightwrong").text("Right/ Wrong: " + numberofCorrect)
     });
     
     $(".other").append(submit);
